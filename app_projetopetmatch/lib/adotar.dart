@@ -8,23 +8,26 @@ class AdotarPet extends StatefulWidget {
 }
 
 class _AdotarPetState extends State<AdotarPet> {
- 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar (
-        title: const Text("PetMatch"),
-    actions: [
-      IconButton(
-        onPressed:(){}, 
-        icon: const Icon(Icons.accessible_sharp)
-       ),
-    ],
-        
-      ),
-    );
+        appBar: AppBar(
+          title: const Text("Pet macht"),
+          backgroundColor: Colors.white,
+        ),
+        backgroundColor: Colors.white,
+        endDrawer: Drawer(
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: [
+                  Color.fromARGB(50, 209, 168, 247),
+                  Color.fromARGB(31, 209, 168, 247),
+                  Color.fromARGB(17, 209, 168, 247),
+                ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+              ),
+padding: E,
+            ),
+            )
+            );
   }
 }
