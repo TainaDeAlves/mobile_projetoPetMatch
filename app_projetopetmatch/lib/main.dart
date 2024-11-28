@@ -6,7 +6,7 @@ void main(){
     debugShowCheckedModeBanner: false,
 title: "PetMatch",
 theme: ThemeData(
-  primaryColor: Colors.white,
+  primaryColor: const Color.fromARGB(255, 255, 255, 255),
 ),
 home: const HomePage(
 
