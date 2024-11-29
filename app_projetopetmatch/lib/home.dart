@@ -31,12 +31,16 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                child: Image.asset(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                children: [Image.asset(
                   'assets/logo3.png',
-                  width: 45,
-                  height: 45,
+                  width: 205,
+                  height: 100,
                 ),
+                ]
+              ),
               ),
               const Padding(
                 padding: EdgeInsets.all(35.0),
