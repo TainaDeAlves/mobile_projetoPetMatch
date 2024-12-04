@@ -13,9 +13,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [Text("Pet match")],
+     
+        title: const SizedBox(
+         
+          width: 150, // Define a largura da imagem
+          height: 50, // Define a altura da imagem
+          child: Image(
+            
+            image: AssetImage("assets/logo3.png"),
+          ),
         ),
       ),
       backgroundColor: Colors.white,
@@ -136,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left:25),
+                      padding: EdgeInsets.only(left: 25),
                       child: Row(
                         children: [
                           Icon(Icons.label_important_outline),
@@ -152,10 +158,45 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      
-      
-
-      
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              // Imagem como fundo
+              Positioned.fill(
+                child: Image.asset(
+                  'assets/banner_barra.png', // Caminho da imagem
+                  fit: BoxFit.contain, // A imagem vai cobrir toda a área
+                ),
+              ),
+              // Container em cima da imagem
+              Container(
+                margin: const EdgeInsets.all(30),
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.white.withOpacity(0.7),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 35),
+          const Text(
+            "Encontre seu novo amigo!",
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: Color(0xffcd9cfa)),
+          ),
+          const Card(
+            elevation: 0.5,
+          )
+        ],
+      ),
     );
   }
 }
