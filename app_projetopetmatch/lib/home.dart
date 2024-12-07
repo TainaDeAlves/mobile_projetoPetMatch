@@ -1,4 +1,7 @@
+import 'package:app_projetopetmatch/detalhesPet.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,18 +11,51 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<dynamic> pets = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    listaServicos();
+  }
+
+  Future<void> listaServicos() async {
+    try {
+      final response =
+          await http.get(Uri.parse('http://10.56.45.24/public/api/pets'));
+
+      if (response.statusCode == 200) {
+        setState(() {
+          pets = json.decode(response.body);
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      mostrarError('Erro: $e');
+    }
+  }
+
+  void mostrarError(String mensagem) {
+    setState(() {
+      isLoading = false;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(mensagem),
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-     
         title: const SizedBox(
-         
           width: 150, // Define a largura da imagem
           height: 50, // Define a altura da imagem
           child: Image(
-            
             image: AssetImage("assets/logo3.png"),
           ),
         ),
@@ -44,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                     'assets/logo3.png',
                     width: 205,
                   ),
-                ]),
+                ]), 
               ),
               const Padding(
                 padding: EdgeInsets.only(top: 25, left: 35),
@@ -192,9 +228,89 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.w500,
                 color: Color(0xffcd9cfa)),
           ),
-          const Card(
-            elevation: 0.5,
-          )
+          const SizedBox(
+            height: 25,
+          ),
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Expanded(  // Coloquei o ListView dentro do Expanded
+                  child: ListView.builder(
+                    itemCount: pets.length,
+                    itemBuilder: (context, index) {
+                      final pet = pets[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>  DetalhesPet(pet: pet,)));
+                        },
+                        child: Card(
+                          elevation: 0.5,
+                          margin: const EdgeInsets.all(8.0),
+                          color: const Color.fromARGB(255, 255, 255, 255),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                16.0), // Borda arredondada do card
+                            side: const BorderSide(
+                              color: Color(0xffcd9cfa), // Cor da borda do card
+                              width: 2.0, // Largura da borda do card
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                    16), // Borda arredondada na imagem
+                                child: Image.network(
+                                  pet['fotos'][0]['imagem'],
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                               Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        pet['nome'],
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        pet['raca'],
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        pet['sexo'],
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
         ],
       ),
     );
