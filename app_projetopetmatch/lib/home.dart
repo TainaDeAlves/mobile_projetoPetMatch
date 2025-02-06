@@ -1,4 +1,6 @@
+import 'package:app_projetopetmatch/TelaPoliticaPrivacidade.dart';
 import 'package:app_projetopetmatch/detalhesPet.dart';
+import 'package:app_projetopetmatch/TelaSobreNos.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -23,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> listaServicos() async {
     try {
       final response =
-          await http.get(Uri.parse('http://10.56.45.24/public/api/pets'));
+          await http.get(Uri.parse('http://10.56.46.30/projeto_petMatch/public/api/pets'));
 
       if (response.statusCode == 200) {
         setState(() {
@@ -89,17 +91,17 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 5, left: 20),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, left: 20),
                 child: Column(
                   children: [
-                    ListTile(
+                    const ListTile(
                       title: Text(
                         "Pagina inicial",
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    ListTile(
+                    const ListTile(
                       title: Text(
                         "Categoria",
                         style: TextStyle(
@@ -108,25 +110,35 @@ class _HomePageState extends State<HomePage> {
                             color: Color(0xffcd9cfa)),
                       ),
                     ),
-                    ListTile(
+                    const ListTile(
                       title: Text(
                         "Adote",
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    ListTile(
+                    const ListTile(
                       title: Text(
                         "Contribua",
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
                     ListTile(
-                      title: Text(
+                      title: const Text(
                         " Sobre nos",
                         style: TextStyle(fontSize: 20),
                       ),
+                      onTap: () {
+                       Navigator.push(
+                        context, 
+
+                        MaterialPageRoute(builder: (context) => TelaSobreNos()),
+
+                       );
+                       
+                       
+                      },
                     ),
-                    ListTile(
+                    const ListTile(
                       title: Text(
                         "Contatos",
                         style: TextStyle(
@@ -135,25 +147,25 @@ class _HomePageState extends State<HomePage> {
                             color: Color(0xffcd9cfa)),
                       ),
                     ),
-                    ListTile(
+                    const ListTile(
                       title: Text(
                         "(14) 9999-9999",
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    ListTile(
+                    const ListTile(
                       title: Text(
                         "contato@petmatch.com",
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    ListTile(
+                    const ListTile(
                       title: Text(
                         "Endereço; 00",
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    ListTile(
+                    const ListTile(
                       title: Text(
                         "Faq",
                         style: TextStyle(
@@ -163,12 +175,22 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     ListTile(
-                      title: Text(
+                      title: const Text(
                         "Politica de privacidade",
                         style: TextStyle(fontSize: 20),
                       ),
+                      onTap: () {
+                       Navigator.push(
+                        context, 
+
+                        MaterialPageRoute(builder: (context) => TelaPoliticaPrivacidade()),
+
+                       );
+                       
+                       
+                      },
                     ),
-                    ListTile(
+                    const ListTile(
                       title: Text(
                         "Redes Sociais",
                         style: TextStyle(
@@ -177,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                             color: Color(0xffcd9cfa)),
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 25),
                       child: Row(
                         children: [

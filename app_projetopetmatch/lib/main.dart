@@ -9,8 +9,6 @@ title: "PetMatch",
 theme: ThemeData(
   primaryColor: const Color.fromARGB(255, 255, 255, 255),
 ),
-home: const HomePage(
-
-),
+home: const HomePage(),
   ));
 }
